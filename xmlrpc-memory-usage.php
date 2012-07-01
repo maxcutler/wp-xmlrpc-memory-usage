@@ -25,9 +25,10 @@ if ( defined( 'XMLRPC_REQUEST' ) ) {
 		xmu_log_usage( 'XML-RPC Call, ' . $method_name );
 	}
 
-	function xmu_prepare( ) {
+	function xmu_prepare( $val ) {
 		$filter = current_filter();
 		xmu_log_usage( 'XML-RPC Filter, ' . $filter );
+		return $val;
 	}
 
 	function xmu_shutdown() {
@@ -49,6 +50,6 @@ if ( defined( 'XMLRPC_REQUEST' ) ) {
 		'xmlrpc_prepare_comment'
 	);
 	foreach ( $prepare_filters as $filter ) {
-		add_filter( $filter, 'xmu_prepare' );
+		add_filter( $filter, 'xmu_prepare', 100, 1 );
 	}
 }
